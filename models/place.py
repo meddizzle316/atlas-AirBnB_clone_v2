@@ -31,7 +31,7 @@ class Place(BaseModel, Base):
                            cascade="all, delete, delete-orphan")
     amenities = relationship("Amenity", secondary=place_amenity,
                              back_populates="place_amenities", viewonly=False)
-
+    amenity_ids = []
 
     if os.getenv("HBNB_TYPE_STORAGE") != 'db':
         @property
