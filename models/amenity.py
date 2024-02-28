@@ -5,6 +5,6 @@ from sqlalchemy import Column, String
 
 
 class Amenity(BaseModel, Base):
-    """Class for place amenity"""
+    """ Class for place amenity """
     __tablename__ = 'amenities'
     name = Column(String(128), nullable=False)
