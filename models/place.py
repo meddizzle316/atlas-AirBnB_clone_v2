@@ -21,7 +21,6 @@ class Place(BaseModel, Base):
     reviews = relationship("Review", backref="place",
                            cascade="all, delete, delete-orphan")
 
-
     @property
     def reviews(self):
         """Returns the list of Review instances from current place"""
