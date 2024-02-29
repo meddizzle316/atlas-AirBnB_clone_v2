@@ -6,22 +6,13 @@ from sqlalchemy.orm import relationship
 import os
 
 if os.getenv("HBNB_TYPE_STORAGE") == 'db':
-    # place_amenity = Table('place_amenity', Base.metadata,
-    #                     Column('place_id', String(60),
-    #                             ForeignKey('places.id'),
-    #                             primary_key=True, nullable=False),
-    #                     Column('amenity_id', String(60),
-    #                             ForeignKey('amenities.id'),
-    #                             primary_key=True, nullable=False))
     place_amenity = Table('place_amenity', Base.metadata,
                         Column('place_id', String(60),
-                                ForeignKey('places.id', onupdate='CASCADE',
-                                        ondelete='CASCADE'),
-                                primary_key=True),
+                                ForeignKey('places.id'),
+                                primary_key=True, nullable=False),
                         Column('amenity_id', String(60),
-                                ForeignKey('amenities.id', onupdate='CASCADE',
-                                        ondelete='CASCADE'),
-                                primary_key=True))
+                                ForeignKey('amenities.id'),
+                                primary_key=True, nullable=False))
 
 
 class Place(BaseModel, Base):
@@ -40,7 +31,7 @@ class Place(BaseModel, Base):
     reviews = relationship("Review", backref="place",
                            cascade="all, delete, delete-orphan")
     amenities = relationship("Amenity", secondary="place_amenity",
-                             back_populates="place_amenities", viewonly=False)
+                             backref="place_amenities", viewonly=False)
     amenity_ids = []
 
     if os.getenv("HBNB_TYPE_STORAGE") != 'db':
@@ -66,4 +57,3 @@ class Place(BaseModel, Base):
             all_reviews = storage.all(BaseModel.Review)
             return [review for review in all_reviews.values()
                     if review.place_id == self.id]
-amenities = Place.amenities
