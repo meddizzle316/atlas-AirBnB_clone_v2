@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """frigging documentation for module for dynamic routes"""
-from flask import Flask, escape
+from flask import Flask
+from flask import escape
 
 
 app = Flask(__name__)
