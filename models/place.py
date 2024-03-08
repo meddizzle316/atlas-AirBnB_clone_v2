@@ -3,20 +3,20 @@
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, ForeignKey, Integer, Float, Table
 from sqlalchemy.orm import relationship
-import os
+from os import environ
+import sqlalchemy
 
-if os.getenv("HBNB_TYPE_STORAGE") == 'db':
+if environ['HBNB_TYPE_STORAGE'] == 'db':
     place_amenity = Table('place_amenity', Base.metadata,
-                        Column('place_id', String(60),
-                                ForeignKey('places.id'),
-                                primary_key=True, nullable=False),
-                        Column('amenity_id', String(60),
-                                ForeignKey('amenities.id'),
-                                primary_key=True, nullable=False))
+                Column('place_id', String(60), ForeignKey('places.id', onupdate='CASCADE', ondelete='CASCADE'), primary_key=True, nullable=False),        
+                Column('amenity_id', String(60), ForeignKey('amenities.id', onupdate='CASCADE', ondelete='CASCADE'), primary_key=True, nullable=False)    
+            )
 
 
 class Place(BaseModel, Base):
-    """A place to stay"""
+    """ A place to stay """
+
+
     __tablename__ = 'places'
     city_id = Column(String(60), ForeignKey('cities.id'), nullable=False)
     user_id = Column(String(60), ForeignKey('users.id'), nullable=False)
@@ -28,28 +28,16 @@ class Place(BaseModel, Base):
     price_by_night = Column(Integer, nullable=False, default=0)
     latitude = Column(Float, nullable=True)
     longitude = Column(Float, nullable=True)
-    reviews = relationship("Review", backref="place",
-                           cascade="all, delete, delete-orphan")
-    amenities = relationship("Amenity", secondary="place_amenity",
-                             backref="place_amenities", viewonly=False)
     amenity_ids = []
+    
+    try: 
+        if environ['HBNB_TYPE_STORAGE'] == 'db':
+            reviews = relationship("Review", backref="place",
+                           cascade="all, delete, delete-orphan")
+            amenities = relationship("Amenity", secondary='place_amenity', backref="place_amenities", viewonly=False)
+    
+    except Exception as ex:
 
-    if os.getenv("HBNB_TYPE_STORAGE") != 'db':
-        @property
-        def amenities(self):
-            """Getter attribute amenities for FileStorage."""
-            from models import storage
-            from models.amenity import Amenity
-            return [amenity for amenity in storage.all(Amenity).values()
-                    if amenity.id in self.amenity_ids]
-
-        @amenities.setter
-        def amenities(self, obj):
-            """Setter attribute amenities for FileStorage."""
-            from models.amenity import Amenity
-            if isinstance(obj, Amenity):
-                if obj.id not in self.amenity_ids:
-                    self.amenity_ids.append(obj.id)
         @property
         def reviews(self):
             """Returns the list of Review instances from current place"""
@@ -57,3 +45,23 @@ class Place(BaseModel, Base):
             all_reviews = storage.all(BaseModel.Review)
             return [review for review in all_reviews.values()
                     if review.place_id == self.id]
+
+        @property
+        def amenities(self):
+            """returns the list of amenity instances from current place"""
+            from models import storage
+            from models.amenity import Amenity
+            print("the getter is running")
+            return [amenity for amenity in storage.all(Amenity).values()
+                    if amenity.id in self.amenity_id]
+
+        @amenities.setter
+        def amenities(self, value):
+            """sets value of amenity property"""
+            from models.amenity import Amenity
+            print("the setter has run")
+            self.amenity_id = []
+            if isinstance(value, Amenity):
+                if value.id not in self.amenity_id:
+                    self.amenity_id.append(value.id) 
+

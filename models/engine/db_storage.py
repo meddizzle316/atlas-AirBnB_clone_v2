@@ -52,6 +52,7 @@ class DBStorage():
 
     def new(self, obj):
         """Saves a specific object to the database"""
+        print("new has run")
         try:
             self.__session.add(obj)
         except Exception:
@@ -59,6 +60,7 @@ class DBStorage():
 
     def save(self):
         """Saves the current session"""
+        print("save has run")
         self.__session.commit()
 
     def delete(self, obj=None):
