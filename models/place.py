@@ -28,7 +28,6 @@ class Place(BaseModel, Base):
     price_by_night = Column(Integer, nullable=False, default=0)
     latitude = Column(Float, nullable=True)
     longitude = Column(Float, nullable=True)
-   
     amenity_ids = []
     
     try: 
@@ -65,3 +64,4 @@ class Place(BaseModel, Base):
             if isinstance(value, Amenity):
                 if value.id not in self.amenity_id:
                     self.amenity_id.append(value.id) 
+
