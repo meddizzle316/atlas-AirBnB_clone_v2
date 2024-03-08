@@ -32,6 +32,10 @@ class DBStorage():
             # Drop all tables if the environment is 'test'
             Base.metadata.drop_all(self.__engine)
 
+    def get_engine(self):
+        """Returns the engine."""
+        return self.__engine
+
     def all(self, cls=None):
         """Gets all instances of cls or of all classes if cls is None"""
         import copy

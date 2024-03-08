@@ -7,10 +7,10 @@ import os
 
 if os.getenv("HBNB_TYPE_STORAGE") == 'db':
     place_amenity = Table('place_amenity', Base.metadata,
-                        Column('place_id', String(60),
+                        Column('place_id',
                                 ForeignKey('places.id'),
                                 primary_key=True, nullable=False),
-                        Column('amenity_id', String(60),
+                        Column('amenity_id',
                                 ForeignKey('amenities.id'),
                                 primary_key=True, nullable=False))
 
@@ -30,9 +30,13 @@ class Place(BaseModel, Base):
     longitude = Column(Float, nullable=True)
     reviews = relationship("Review", backref="place",
                            cascade="all, delete, delete-orphan")
-    amenities = relationship("Amenity", secondary="place_amenity",
-                             backref="place_amenities", viewonly=False)
+    amenities = relationship("Amenity", secondary=place_amenity,
+                             backref="place_amenities")
     amenity_ids = []
+
+    def __init__(self, *args, **kwargs):
+        """initializes Place"""
+        super().__init__(*args, **kwargs)
 
     if os.getenv("HBNB_TYPE_STORAGE") != 'db':
         @property
