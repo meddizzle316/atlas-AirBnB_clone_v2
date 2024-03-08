@@ -43,9 +43,13 @@ def number(n):
 
 @app.route("/number_template/<n>", strict_slashes=False)
 def number_template(n):
-    if isinstance(n, int):
-        int_n = int(n)
-        return render_template('5-number.html', n=n)
+    try:
+        float_n = float(n)
+        if float_n % 1 == 0:
+            int_n = int(n)
+            return render_template('5-number.html', n=n)
+    except ValueError:
+        abort(404)
 
 
 if __name__ == '__main__':
