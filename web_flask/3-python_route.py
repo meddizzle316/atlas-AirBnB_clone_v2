@@ -24,7 +24,7 @@ def c(text):
     return f"C {safe_text}"
 
 
-@app.route("/python/<text>", strict_slashes=False)
+@app.route("/python/<text>", defaults={'is cool'}, strict_slashes=False)
 def python(text):
     safe_text = escape(text)
     safe_text = safe_text.replace("_", " ")
