@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """frigging documentation for module for dynamic routes"""
-from flask import Flask
+from flask import Flask, abort
 from markupsafe import escape
 
 
@@ -37,8 +37,8 @@ def number(n):
     try:
         int_n = int(n)
         return f'{n} is a number'
-    except Exception:
-        return 404
+    except ValueError:
+        abort(404)
 
 
 
