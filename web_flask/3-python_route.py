@@ -24,7 +24,7 @@ def c(text):
     return f"C {safe_text}"
 
 
-@app.route("/python", strict_slashes=False)
+# @app.route("/python", strict_slashes=False)
 @app.route("/python/<text>", strict_slashes=False)
 def python(text='is cool'):
     safe_text = escape(text)
