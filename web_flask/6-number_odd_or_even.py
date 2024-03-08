@@ -61,9 +61,9 @@ def number_odd_or_even(n):
         if float_n % 1 == 0:
             int_n = int(float_n)
             if int_n % 2 == 0:
-                odd_or_even = 'even'
+                odd_or_even = "even"
             else:
-                odd_or_even = 'odd'
+                odd_or_even = "odd"
             return render_template('6-number.html', n=int_n, odd_or_even=odd_or_even)
         else:
             abort(404)
