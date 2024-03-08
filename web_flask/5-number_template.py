@@ -48,6 +48,8 @@ def number_template(n):
         if float_n % 1 == 0:
             int_n = int(float_n)
             return render_template('5-number.html', n=int_n)
+        else:
+            abort(404)
     except ValueError:
         abort(404)
 
