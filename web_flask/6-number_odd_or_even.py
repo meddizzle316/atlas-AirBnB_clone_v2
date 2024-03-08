@@ -56,6 +56,7 @@ def number_template(n):
 
 @app.route("/number_odd_or_even/<n>", strict_slashes=False)
 def number_odd_or_even(n):
+    odd_or_even = ""
     try:
         float_n = float(n)
         if float_n % 1 == 0:
@@ -64,7 +65,7 @@ def number_odd_or_even(n):
                 odd_or_even = "even"
             else:
                 odd_or_even = "odd"
-            return render_template('6-number.html', n=int_n, odd_or_even=odd_or_even)
+            return render_template('6-number_odd_or_even.html', n=int_n, odd_or_even=odd_or_even)
         else:
             abort(404)
     except ValueError:
