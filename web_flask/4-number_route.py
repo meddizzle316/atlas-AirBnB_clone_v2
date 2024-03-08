@@ -38,7 +38,7 @@ def number(n):
         int_n = int(n)
         return f'{n} is a number'
     except Exception:
-        pass
+        return 404
 
 
 
