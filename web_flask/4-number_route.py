@@ -36,7 +36,7 @@ def python(text='is cool'):
 def number(n):
     try:
         int_n = int(n)
-        return n
+        return f'{n} is a number'
     except Exception:
         pass
 
