@@ -15,6 +15,7 @@ class BaseModel:
     def __init__(self, **kwargs):
         """Instatntiates a new model and kwags are given if objects in json"""
         from uuid import uuid4
+        print("init function has run")
         if kwargs:
             if 'id' not in kwargs.keys():
                 self.id = str(uuid4())
@@ -31,6 +32,7 @@ class BaseModel:
             self.id = str(uuid4())
             self.created_at = datetime.utcnow()
             self.updated_at = datetime.utcnow()
+
 
     def __str__(self):
         """Returns a string representation of the instance"""
