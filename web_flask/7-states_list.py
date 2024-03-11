@@ -3,14 +3,16 @@
 from flask import Flask, abort, render_template
 from markupsafe import escape
 from models import storage
+from models.state import State
+from models.city import City
 
 app = Flask(__name__)
 
 
 @app.route("/states_list", strict_slashes=False)
 def states_list():
-    pass
-
+    all_states = storage.all(State)
+    return render_template('7-states_list.html', items=all_states)
 
 @app.teardown_appcontext
 def teardown():
