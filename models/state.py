@@ -12,11 +12,22 @@ class State(BaseModel, Base):
     _cities = relationship("City", backref="state",
                            cascade="all, delete, delete-orphan")
 
-
     if environ['HBNB_TYPE_STORAGE'] == 'db':
+        @property
+        def cities(self):
+            from models import storage
+            all_cities = storage.all(BaseModel.City)
+            return [city for city in all_cities.values() 
+                    if city.state_id == self.id]
+
+
+    else:
+
         @property
         def cities(self):
             from models import storage
             all_cities = storage.all(BaseModel.City)
             return [city for city in all_cities.values()
                     if city.state_id == self.id]
+
+    
