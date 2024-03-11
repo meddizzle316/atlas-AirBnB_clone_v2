@@ -75,3 +75,9 @@ class DBStorage():
         dbsession = sessionmaker(bind=self.__engine, expire_on_commit=False)
         session = scoped_session(dbsession)
         self.__session = session()
+
+
+    def close(self):
+        """calls remove on private session attribute """
+        from sqlalchemy.orm import scoped_session
+        scoped_session.remove()
