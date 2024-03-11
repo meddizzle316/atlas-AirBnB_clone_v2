@@ -6,6 +6,7 @@ from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
 from os import environ
 
+
 class State(BaseModel, Base):
     """ State class """
     __tablename__ = 'states'
@@ -18,17 +19,12 @@ class State(BaseModel, Base):
         def cities(self):
             from models import storage
             all_cities = storage.all(City)
-            return [city for city in all_cities.values() 
+            return [city for city in all_cities.values()
                     if city.state_id == self.id]
-
-
     else:
-
         @property
         def cities(self):
             from models import storage
             all_cities = storage.all(City)
             return [city for city in all_cities.values()
                     if city.state_id == self.id]
-
-    
