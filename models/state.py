@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """ State Module for HBNB project """
 from models.base_model import BaseModel, Base
+from models.city import City
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
 from os import environ
@@ -16,7 +17,7 @@ class State(BaseModel, Base):
         @property
         def cities(self):
             from models import storage
-            all_cities = storage.all(BaseModel.City)
+            all_cities = storage.all(City)
             return [city for city in all_cities.values() 
                     if city.state_id == self.id]
 
