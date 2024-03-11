@@ -6,6 +6,7 @@ from models import storage
 from models.state import State
 from models.city import City
 
+
 app = Flask(__name__)
 
 
@@ -13,6 +14,7 @@ app = Flask(__name__)
 def states_list():
     all_states = storage.all(State).values()
     return render_template('7-states_list.html', items=all_states)
+
 
 @app.teardown_appcontext
 def teardown(exception):
