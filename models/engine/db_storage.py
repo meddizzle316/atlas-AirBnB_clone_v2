@@ -81,3 +81,4 @@ class DBStorage():
         """calls remove on private session attribute """
         from sqlalchemy.orm import scoped_session
         scoped_session.remove()
+        self.reload()
