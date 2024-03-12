@@ -12,3 +12,8 @@ class City(BaseModel, Base):
     name = Column(String(128), nullable=False)
     places = relationship("Place", backref="cities",
                           cascade="all, delete, delete-orphan")
+
+
+    def __getitem__(self, item):
+        return getattr(self, item)
+    """trying something out for task 10 of the airbnb web flask project"""

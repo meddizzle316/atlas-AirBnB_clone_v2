@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<HTML lang="en">
+    <HEAD>
+        <TITLE>HBNB</TITLE>
+    </HEAD>
+    <BODY>
+        {% if id is defined and items is defined and id %}
+            <H1>State: {{ items[0].name }}</H1>
+                <h3>Cities</h3>
+                    {% for subitem in items[0].cities %}
+                    <LI> {{ subitem.id }}:  <B>{{ subitem.name }}</B> </LI>
+                    {% endfor %}
+        {% elif items is defined and items %}
+            <H1>States: just to test</H1>
+            <UL>
+                {% for item in items.values() %}
+                <LI>{{ item.id }}: <B>{{ item.name }}</B></LI>
+                {% endfor %}
+            </UL>
+        
+        {% else %}
+            <H1>Not found!</H1>
+
+        {% endif %}
+    </BODY>
+</HTML>
+`
