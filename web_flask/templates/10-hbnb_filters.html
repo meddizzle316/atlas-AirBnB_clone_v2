@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>AirBnB clone</title>
+
+		<link rel="shortcut icon" href="images/icon.ico" >
+
+		<link rel="stylesheet" href="/static/styles/4-common.css"/>
+		<link rel="stylesheet" href="/static/styles/3-footer.css"/>
+		<link rel="stylesheet" href="/static/styles/3-header.css"/>
+		<link rel="stylesheet" href="/static/styles/6-filters.css"/>
+	</head>
+    <body>
+		<header>
+			<div id="header_logo"></div>
+		</header>
+		<div class="container">
+			<section class="filters">
+				<button>Search</button>
+				<div class="locations">
+					<h3>States</h3>
+                        <ul class="popover">
+                        {% for item in items.values() %}
+                                <h2> {{ item.name }} </h2>
+                                {% for subitem in item.cities %}
+                                    <ul>
+                                        <li>{{ subitem.name}}</li>
+                                    </ul>
+                                {% endfor %}
+                        {% endfor %}
+                        </ul>
+                        
+				</div>
+				<div class="amenities">
+					<h3>Amenities</h3>
+					<h4>Internet, Kitchen...</h4>
+					<ul class="popover">
+						<li><h4>Internet</h4></li>
+						<li><h4>TV</h4></li>
+						<li><h4>Kitchen</h4></li>
+						<li><h4>Iron</h4></li>
+					</ul>
+				</div>
+
+			</section>
+		</div>
+		<footer>
+			<p>Holberton School</p>
+		</footer>
+	</body>
+</html>
+
+<!-- <!DOCTYPE html>
+<HTML lang="en">
+    <HEAD>
+        <TITLE>HBNB</TITLE>
+    </HEAD>
+    <BODY>
+        {% if id is defined and items is defined and id %}
+            <H1>State: {{ items[0].name }}</H1>
+                <h3>Cities</h3>
+                    {% for subitem in items[0].cities %}
+                    <LI> {{ subitem.id }}:  <B>{{ subitem.name }}</B> </LI>
+                    {% endfor %}
+        {% elif items is defined and items %}
+            <H1>States: just to test</H1>
+            <UL>
+                {% for item in items.values() %}
+                <LI>{{ item.id }}: <B>{{ item.name }}</B></LI>
+                {% endfor %}
+            </UL>
+        
+        {% else %}
+            <H1>Not found!</H1>
+
+        {% endif %}
+    </BODY>
+</HTML> -->
+`
