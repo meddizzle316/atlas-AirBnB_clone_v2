@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM docker/dev-environments-default:stable-1
 RUN apt-get update
 RUN apt-get upgrade
 RUN apt-get install -y docker.io
